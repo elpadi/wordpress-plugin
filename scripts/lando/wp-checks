@@ -1,0 +1,31 @@
+#!/bin/bash
+
+cd /app
+
+echo -e "Does wordpress need to be downloaded?"
+if [[ ! -f "wordpress/index.php" ]]; then
+    echo "Downloading wordpress..."
+    /usr/local/bin/wp core download --path=wordpress
+else
+    echo "Wordpress has already been downloaded."
+fi
+
+echo -e "\nDoes wordpress need to be installed?"
+if ! $(wp core is-installed); then
+    echo "Installing wordpress..."
+    /usr/local/bin/wp core install --path=wordpress --url=https://wordpress-plugin.lndo.site --title="Wordpress Plugin" --admin_user=admin --admin_password=admin --admin_email=padi_05@yahoo.com
+else
+    echo "Wordpress is already installed."
+fi
+
+echo -e "\nDoes wordpress need to be configured?"
+if [[ ! -f "wordpress/wp-config.php" || $(grep -c 'dirname.*config' wordpress/wp-config.php) == "0" ]]; then
+    echo "Configuring wordpress..."
+    /usr/local/bin/wp config create --path=wordpress --dbname=wordpress --dbuser=wordpress --dbpass=wordpress --dbhost=database --skip-check --force
+    sed -i -e '/stop editing/i require_once(dirname(__DIR__) . "/wp-config.php");' wordpress/wp-config.php
+    if [[ -f "htaccess" ]]; then
+        cp htaccess wordpress/.htaccess
+    fi
+else
+    echo "Wordpress is already configured."
+fi

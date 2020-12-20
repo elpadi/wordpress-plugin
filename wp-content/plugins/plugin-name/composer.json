@@ -1,0 +1,26 @@
+{
+    "name": "elpadi/wordpress-plugin",
+    "description": "Boilerplate for wordpress plugin",
+    "type": "wordpress-plugin",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Carlos Padilla",
+            "email": "carlos.padilla@fool.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "pimple/pimple": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "PluginName\\Plugin\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PluginName\\Tests\\": "tests/"
+        }
+    }
+}

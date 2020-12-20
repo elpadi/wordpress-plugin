@@ -1,0 +1,16 @@
+name: wordpress-plugin
+recipe: wordpress
+config:
+    webroot: wordpress
+services:
+    appserver:
+        build:
+            - composer g require psy/psysh:@stable
+        run:
+            - /app/scripts/lando/wp-checks
+    phpmyadmin:
+        type: phpmyadmin
+        hosts:
+            - database
+excludes:
+    - wp-content/plugins/plugin-name/vendor
