@@ -11,7 +11,8 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "pimple/pimple": "^3.3"
+        "pimple/pimple": "^3.3",
+        "voku/stringy": "^6.4"
     },
     "autoload": {
         "psr-4": {
@@ -22,5 +23,8 @@
         "psr-4": {
             "PluginName\\Tests\\": "tests/"
         }
+    },
+    "require-dev": {
+        "filp/whoops": "^2.9"
     }
 }

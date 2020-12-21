@@ -15,6 +15,10 @@
 
 namespace PluginName;
 
+use Whoops\{
+    Run,
+    Handler\PrettyPageHandler
+};
 use Pimple\Container;
 use PluginName\Plugin\{
     Plugin,
@@ -27,6 +31,12 @@ if (!defined('WPINC')) {
 }
 
 require __DIR__ . '/vendor/autoload.php';
+
+if (class_exists(Run::class) && WP_DEBUG) {
+    $whoops = new Run();
+    $whoops->pushHandler(new PrettyPageHandler());
+    $whoops->register();
+}
 
 Plugin::$container = new Container();
 
